@@ -3,8 +3,10 @@ package com.api.restaurants.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
-
 
 import com.api.restaurants.entities.Restaurants;
 import com.api.restaurants.repository.RestaurantRepository;
@@ -43,10 +45,8 @@ public class RestaurantService {
 	}
 
 	public List<Restaurants> getName(String foodName) {
-		
+
 		return restaurantrepository.findByfoodName(foodName);
 	}
 
-
-	
 }

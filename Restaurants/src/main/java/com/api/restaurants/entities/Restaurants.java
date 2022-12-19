@@ -1,7 +1,9 @@
 package com.api.restaurants.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -11,7 +13,9 @@ public class Restaurants {
 	@Id
 //	@GeneratedValue(strategy= GenerationType.AUTO)
 	private int id;
-	private String foodName;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private FoodName foodName;
 	private double price;
 
 	public int getId() {
@@ -22,11 +26,11 @@ public class Restaurants {
 		this.id = id;
 	}
 
-	public String getFoodName() {
+	public FoodName getFoodName() {
 		return foodName;
 	}
 
-	public void setFoodName(String foodName) {
+	public void setFoodName(FoodName foodName) {
 		this.foodName = foodName;
 	}
 
@@ -48,7 +52,7 @@ public class Restaurants {
 		this.price = price;
 	}
 
-	public Restaurants(int id, String foodName, double price) {
+	public Restaurants(int id, FoodName foodName, double price) {
 		super();
 		this.id = id;
 		this.foodName = foodName;
