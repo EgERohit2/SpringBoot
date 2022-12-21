@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.cricket.Implementation.CricketServiceImplementation;
@@ -60,9 +61,10 @@ public class CricketController {
 
 	}
 
-	@GetMapping("/{pageNumber}/{pageSize}")
-	public ResponseEntity<List<Cricket>> getDetails(@PathVariable int pageNumber, @PathVariable int pageSize) {
-		List<Cricket> list2 = cricketServiceImplementation.getDetailsAll(pageNumber, pageSize);
+	@GetMapping("/{pageNumber}/{pageSize}/{sortBy}")
+	public ResponseEntity<List<Cricket>> getDetails(@PathVariable int pageNumber, @PathVariable int pageSize,
+			@PathVariable String sortBy) {
+		List<Cricket> list2 = cricketServiceImplementation.getDetailsAll(pageNumber, pageSize, sortBy);
 		if (list2.size() <= 0) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}

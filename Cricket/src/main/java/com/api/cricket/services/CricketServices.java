@@ -13,5 +13,5 @@ public interface CricketServices {
 	
 	public void deleteData(int id);
 
-	public List<Cricket> getDetailsAll(int pageNumber, int pageSize);
+	public List<Cricket> getDetailsAll(int pageNumber, int pageSize,String sortBy);
 }
