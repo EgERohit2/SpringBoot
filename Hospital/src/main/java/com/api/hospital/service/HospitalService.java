@@ -2,6 +2,7 @@ package com.api.hospital.service;
 
 import java.util.List;
 
+import com.api.hospital.dto.HospitalDto;
 import com.api.hospital.entities.Hospital;
 
 public interface HospitalService {
@@ -14,7 +15,9 @@ public interface HospitalService {
 	
 	public void deleteData(int id);
 	
-	public List<Hospital> getAllById(int id);
+	public List<HospitalDto>getAlls();
+	
+	public List<HospitalDto>getEverything(int pageN, int pageS);
 
 	
 }

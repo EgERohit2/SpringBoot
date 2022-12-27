@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.hospital.dto.HospitalDto;
 import com.api.hospital.entities.Hospital;
 import com.api.hospital.service.HospitalService;
 
@@ -28,12 +29,6 @@ public class HospitalController {
 			@RequestParam(value = "pageSize") int pageSize) {
 		return hospitalService.getAll(pageNumber, pageSize);
 
-	}
-	
-	@GetMapping("/{id}")
-	public List<Hospital> getAllById(@PathVariable int id)
-	{
-		return hospitalService.getAllById(id);
 	}
 
 	@PostMapping()
@@ -54,5 +49,9 @@ public class HospitalController {
 		return "deleted";
 	}
 
+	@GetMapping("/hospital")
+	public List<HospitalDto> getAlls() {
+		return hospitalService.getAlls();
+	}
 
 }
