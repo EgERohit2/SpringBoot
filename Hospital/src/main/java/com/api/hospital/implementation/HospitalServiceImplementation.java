@@ -10,9 +10,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.api.hospital.dto.HospitalDto;
+import com.api.hospital.dtoimpl.DtoImplementation;
 import com.api.hospital.entities.Hospital;
 import com.api.hospital.repository.HospitalRepository;
 import com.api.hospital.service.HospitalService;
+
+import org.springframework.util.*;
 
 @Service
 public class HospitalServiceImplementation implements HospitalService {
@@ -62,7 +65,28 @@ public class HospitalServiceImplementation implements HospitalService {
 		return hospitalDtos;
 	}
 
-	
+	@Override
+	public Page<DtoImplementation> findAllWithPage(String search, String pageNumber, String pageSize) {
+		// TODO Auto-generated method stub
+
+        Pageable paging = PageRequest.of(Integer.parseInt(pageNumber) - 1, Integer.parseInt(pageSize));
+
+        Page<DtoImplementation> cvList;
+
+        if ((search == "") || (search == null) || (search.length() == 0)) {
+
+            cvList = hospitalRepository.findByOrderById(paging, DtoImplementation.class);
+
+        } else {
+
+       cvList = hospitalRepository.findByDeptContainingIgnoreCaseOrderById(StringUtils.trimAllWhitespace(search),
+    		   paging, DtoImplementation.class);
+
+        }
+
+        return cvList;
 	}
 
+	
 
+}

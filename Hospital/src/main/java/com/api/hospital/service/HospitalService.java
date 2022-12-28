@@ -2,7 +2,10 @@ package com.api.hospital.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.api.hospital.dto.HospitalDto;
+import com.api.hospital.dtoimpl.DtoImplementation;
 import com.api.hospital.entities.Hospital;
 
 public interface HospitalService {
@@ -16,8 +19,9 @@ public interface HospitalService {
 	public void deleteData(int id);
 	
 	public List<HospitalDto>getAlls();
+	public Page<DtoImplementation> findAllWithPage(String search, String pageNumber, String pageSize);
 	
-	public List<HospitalDto>getEverything(int pageN, int pageS);
+	
 
 	
 }

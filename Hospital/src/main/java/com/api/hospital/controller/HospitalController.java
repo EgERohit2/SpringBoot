@@ -3,6 +3,9 @@ package com.api.hospital.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.hospital.dto.HospitalDto;
+import com.api.hospital.dtoimpl.DtoImplementation;
 import com.api.hospital.entities.Hospital;
+import com.api.hospital.implementation.HospitalServiceImplementation;
 import com.api.hospital.service.HospitalService;
 
 @RestController
@@ -25,13 +30,18 @@ public class HospitalController {
 	private HospitalService hospitalService;
 
 	@GetMapping("/")
-	public List<Hospital> getAll(@RequestParam(value = "pageNumber") int pageNumber,
+	public ResponseEntity<List<Hospital>> getAll(@RequestParam(value = "pageNumber") int pageNumber,
 			@RequestParam(value = "pageSize") int pageSize) {
-		return hospitalService.getAll(pageNumber, pageSize);
+		List<Hospital> list1 = this.hospitalService.getAll(pageNumber, pageSize);
+		if (list1.size() <= 0) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		}
+		return ResponseEntity.ok(list1);
 
 	}
 
 	@PostMapping()
+
 	public void postAll(@RequestBody Hospital hospital) {
 		hospitalService.postAll(hospital);
 
@@ -54,4 +64,22 @@ public class HospitalController {
 		return hospitalService.getAlls();
 	}
 
-}
+	@GetMapping("/getPagination")
+	public ResponseEntity<?> pagination (@RequestParam (value="search")String search, @RequestParam 
+			(value="pageNumber")String pageNumber, @RequestParam (value="pageSize") String pageSize)
+	{
+		Page<DtoImplementation> cvs= hospitalService.findAllWithPage(search, pageNumber, pageSize);
+		  if (cvs.getTotalElements() != 0) {
+
+	            return new ResponseEntity<>((cvs.getContent()), HttpStatus.OK);
+
+	        } else {
+
+	            return new ResponseEntity<>("", HttpStatus.NOT_FOUND);
+
+	        }
+
+	    }
+	}
+
+
