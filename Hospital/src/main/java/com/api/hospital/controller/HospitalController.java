@@ -2,6 +2,8 @@ package com.api.hospital.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -42,7 +44,7 @@ public class HospitalController {
 
 	@PostMapping()
 
-	public void postAll(@RequestBody Hospital hospital) {
+	public void postAll(@RequestBody @Valid Hospital hospital) {
 		hospitalService.postAll(hospital);
 
 	}
@@ -65,21 +67,18 @@ public class HospitalController {
 	}
 
 	@GetMapping("/getPagination")
-	public ResponseEntity<?> pagination (@RequestParam (value="search")String search, @RequestParam 
-			(value="pageNumber")String pageNumber, @RequestParam (value="pageSize") String pageSize)
-	{
-		Page<DtoImplementation> cvs= hospitalService.findAllWithPage(search, pageNumber, pageSize);
-		  if (cvs.getTotalElements() != 0) {
+	public ResponseEntity<?> pagination(@RequestParam(value = "search") String search,
+			@RequestParam(value = "pageNumber") String pageNumber, @RequestParam(value = "pageSize") String pageSize) {
+		Page<DtoImplementation> cvs = hospitalService.findAllWithPage(search, pageNumber, pageSize);
+		if (cvs.getTotalElements() != 0) {
 
-	            return new ResponseEntity<>((cvs.getContent()), HttpStatus.OK);
+			return new ResponseEntity<>((cvs.getContent()), HttpStatus.OK);
 
-	        } else {
+		} else {
 
-	            return new ResponseEntity<>("", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("", HttpStatus.NOT_FOUND);
 
-	        }
+		}
 
-	    }
 	}
-
-
+}

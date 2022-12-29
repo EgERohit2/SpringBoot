@@ -9,15 +9,11 @@ import com.api.hospital.dtoimpl.DtoImplementation;
 import com.api.hospital.entities.Hospital;
 
 @Repository
-public interface HospitalRepository extends JpaRepository<Hospital, Integer>{
-
-	   
-
+public interface HospitalRepository extends JpaRepository<Hospital, Integer> {
 
 	Page<DtoImplementation> findByDeptContainingIgnoreCaseOrderById(String trimAllWhitespace, Pageable paging,
 			Class<DtoImplementation> class1);
 
 	Page<DtoImplementation> findByOrderById(Pageable paging, Class<DtoImplementation> class1);
 
-	
 }

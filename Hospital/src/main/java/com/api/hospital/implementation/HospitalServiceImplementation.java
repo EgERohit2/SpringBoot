@@ -60,6 +60,7 @@ public class HospitalServiceImplementation implements HospitalService {
 			HospitalDto hospitalDto = new HospitalDto();
 			hospitalDto.setName(hospitaList.get(i).getName());
 			hospitalDto.setDept(hospitaList.get(i).getDept());
+			hospitalDto.setEmail(hospitaList.get(i).getEmail());
 			hospitalDtos.add(hospitalDto);
 		}
 		return hospitalDtos;
@@ -67,26 +68,16 @@ public class HospitalServiceImplementation implements HospitalService {
 
 	@Override
 	public Page<DtoImplementation> findAllWithPage(String search, String pageNumber, String pageSize) {
-		// TODO Auto-generated method stub
+		Pageable paging = PageRequest.of(Integer.parseInt(pageNumber) - 1, Integer.parseInt(pageSize));
+		Page<DtoImplementation> cvList;
+		if ((search == "") || (search == null) || (search.length() == 0)) {
+			cvList = hospitalRepository.findByOrderById(paging, DtoImplementation.class);
+		} else {
+			cvList = hospitalRepository.findByDeptContainingIgnoreCaseOrderById(StringUtils.trimAllWhitespace(search),
+					paging, DtoImplementation.class);
+		}
 
-        Pageable paging = PageRequest.of(Integer.parseInt(pageNumber) - 1, Integer.parseInt(pageSize));
-
-        Page<DtoImplementation> cvList;
-
-        if ((search == "") || (search == null) || (search.length() == 0)) {
-
-            cvList = hospitalRepository.findByOrderById(paging, DtoImplementation.class);
-
-        } else {
-
-       cvList = hospitalRepository.findByDeptContainingIgnoreCaseOrderById(StringUtils.trimAllWhitespace(search),
-    		   paging, DtoImplementation.class);
-
-        }
-
-        return cvList;
+		return cvList;
 	}
-
-	
 
 }
