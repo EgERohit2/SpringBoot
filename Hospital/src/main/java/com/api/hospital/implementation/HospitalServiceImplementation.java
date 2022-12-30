@@ -80,4 +80,18 @@ public class HospitalServiceImplementation implements HospitalService {
 		return cvList;
 	}
 
+	@Override
+	public List<Hospital> getAllData() {
+		// TODO Auto-generated method stub
+		return hospitalRepository.findAll();
+				
+	}
+
+	@Override
+	public List<Hospital> findData() {
+		// TODO Auto-generated method stub
+		return hospitalRepository.findAll();
+	}
+
+	
 }

@@ -21,7 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.hospital.dto.HospitalDto;
 import com.api.hospital.dtoimpl.DtoImplementation;
 import com.api.hospital.entities.Hospital;
-import com.api.hospital.implementation.HospitalServiceImplementation;
+import com.api.hospital.exception.HospitalNotFoundException;
+import com.api.hospital.repository.HospitalRepository;
 import com.api.hospital.service.HospitalService;
 
 @RestController
@@ -29,18 +30,34 @@ import com.api.hospital.service.HospitalService;
 public class HospitalController {
 
 	@Autowired
+	private HospitalRepository hospitalRepository;
+	
+	@Autowired
 	private HospitalService hospitalService;
 
 	@GetMapping("/")
 	public ResponseEntity<List<Hospital>> getAll(@RequestParam(value = "pageNumber") int pageNumber,
 			@RequestParam(value = "pageSize") int pageSize) {
-		List<Hospital> list1 = this.hospitalService.getAll(pageNumber, pageSize);
-		if (list1.size() <= 0) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		
+		List<Hospital> database = this.hospitalRepository.findAll();
+		
+		if (!database.isEmpty()) {
+			List<Hospital> list1 = this.hospitalService.getAll(pageNumber, pageSize);
+			return new ResponseEntity<>(list1, HttpStatus.OK);
 		}
-		return ResponseEntity.ok(list1);
-
+		else {
+			return null;
+		}
 	}
+
+	@GetMapping("/alldata")
+	public List<Hospital> getAllData() {
+		
+		List<Hospital> l1 = hospitalService.getAllData();
+		return l1;
+		
+	}
+		
 
 	@PostMapping()
 
@@ -63,8 +80,10 @@ public class HospitalController {
 
 	@GetMapping("/hospital")
 	public List<HospitalDto> getAlls() {
-		return hospitalService.getAlls();
+		return  this.hospitalService.getAlls();
+		
 	}
+	
 
 	@GetMapping("/getPagination")
 	public ResponseEntity<?> pagination(@RequestParam(value = "search") String search,
@@ -79,6 +98,18 @@ public class HospitalController {
 			return new ResponseEntity<>("", HttpStatus.NOT_FOUND);
 
 		}
+		
 
 	}
+//	@GetMapping("/getEverything")
+//	public List<Hospital> findData() throws DataNotFoundException {
+//		List<Hospital> l1 = hospitalService.findData() ;
+//		if (l1.size() <= 0) {
+//
+//			throw new DataNotFoundException();
+//
+//		} else {
+//			return l1;
+//		}
+//}
 }

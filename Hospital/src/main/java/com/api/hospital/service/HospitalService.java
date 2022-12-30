@@ -21,9 +21,11 @@ public interface HospitalService {
 	
 	public List<HospitalDto>getAlls();
 	
+	public List<Hospital>getAllData();
+	
 	public Page<DtoImplementation> findAllWithPage(String search, String pageNumber, String pageSize);
 	
-	
+	public List<Hospital> findData();
 
 	
 }
