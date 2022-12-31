@@ -10,10 +10,15 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name="Hospital")
+
+@Where(clause="is_active")
+@SQLDelete(sql ="UPDATE Hospital set is_active=false where id=?")
 public class Hospital {
 
 	@Id
@@ -25,7 +30,39 @@ public class Hospital {
 	private String dept;
 	@NotBlank(message = "email souldn't be null")
 	private String email;
+	private Boolean isActive=true;
 	
+	public Hospital(Boolean isActive, Date cretedt, Date updatedAt) {
+		super();
+		this.isActive = isActive;
+		this.cretedt = cretedt;
+		this.updatedAt = updatedAt;
+	}
+
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public Date getCretedt() {
+		return cretedt;
+	}
+
+	public void setCretedt(Date cretedt) {
+		this.cretedt = cretedt;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
 	@CreationTimestamp
 	private Date cretedt;
 	

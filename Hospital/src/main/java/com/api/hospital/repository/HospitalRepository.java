@@ -16,4 +16,5 @@ public interface HospitalRepository extends JpaRepository<Hospital, Integer> {
 
 	Page<DtoImplementation> findByOrderById(Pageable paging, Class<DtoImplementation> class1);
 
+	
 }

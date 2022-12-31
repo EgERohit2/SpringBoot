@@ -3,15 +3,19 @@ package com.api.hospital.implementation;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.crypto.Data;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.api.hospital.dto.HospitalDto;
 import com.api.hospital.dtoimpl.DtoImplementation;
 import com.api.hospital.entities.Hospital;
+import com.api.hospital.exception.DataNotFoundException;
 import com.api.hospital.repository.HospitalRepository;
 import com.api.hospital.service.HospitalService;
 
@@ -31,14 +35,14 @@ public class HospitalServiceImplementation implements HospitalService {
 
 	}
 
-	@Override
+	@Override // void vs EntityReturnORDtoReturn
 	public void postAll(Hospital hospital) {
 		hospitalRepository.save(hospital);
 
 	}
 
 	@Override
-	public void updateData(Hospital hospital, int id) {
+	public void updateData(Hospital hospital, int id) throws DataNotFoundException {
 		Hospital h = hospitalRepository.findById(id).orElseThrow();
 		h.setName(hospital.getName());
 		h.setDept(hospital.getDept());
@@ -84,7 +88,7 @@ public class HospitalServiceImplementation implements HospitalService {
 	public List<Hospital> getAllData() {
 		// TODO Auto-generated method stub
 		return hospitalRepository.findAll();
-				
+
 	}
 
 	@Override
@@ -93,5 +97,10 @@ public class HospitalServiceImplementation implements HospitalService {
 		return hospitalRepository.findAll();
 	}
 
-	
+	@Override
+	public Hospital findData(int id) {
+		return hospitalRepository.findById(id).orElseThrow(() -> new DataNotFoundException());
+
+	}
+
 }
