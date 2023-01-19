@@ -24,7 +24,6 @@ import com.api.hospital.dto.SuccessResponseDto;
 import com.api.hospital.dtoimpl.DtoImplementation;
 import com.api.hospital.entities.Hospital;
 import com.api.hospital.exception.DataNotFoundException;
-import com.api.hospital.exception.HospitalNotFoundException;
 import com.api.hospital.repository.HospitalRepository;
 import com.api.hospital.service.HospitalService;
 
@@ -72,12 +71,13 @@ public class HospitalController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateData(@RequestBody Hospital hospital, @PathVariable int id) throws DataNotFoundException{
+	public ResponseEntity<?> updateData(@RequestBody Hospital hospital, @PathVariable int id)
+			throws DataNotFoundException {
 
 		try {
 			hospitalService.updateData(hospital, id);
 			return new ResponseEntity<>(new SuccessResponseDto("Done", "updated", hospital), HttpStatus.OK);
-		} catch (DataNotFoundException e) {
+		} catch (Exception e) {
 			return new ResponseEntity<>(new ErrorResponseDto("error", "NO data found"), HttpStatus.CREATED);
 		}
 	}
@@ -102,11 +102,6 @@ public class HospitalController {
 		} else {
 			return new ResponseEntity<>("", HttpStatus.NOT_FOUND);
 		}
-	}
-
-	@GetMapping("/{id}")
-	public Hospital findById(@PathVariable int id) {
-		return hospitalService.findData(id);
 	}
 
 }

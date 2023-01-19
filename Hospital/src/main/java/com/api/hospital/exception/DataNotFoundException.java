@@ -1,12 +1,12 @@
 package com.api.hospital.exception;
 
-public class DataNotFoundException  extends RuntimeException{
+public class DataNotFoundException extends RuntimeException {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	public DataNotFoundException() {
 
 		super();
@@ -18,6 +18,5 @@ public class DataNotFoundException  extends RuntimeException{
 		super(message);
 
 	}
-	
 
 }

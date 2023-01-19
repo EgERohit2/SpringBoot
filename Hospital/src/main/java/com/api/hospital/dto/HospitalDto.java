@@ -1,16 +1,11 @@
 package com.api.hospital.dto;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
 public class HospitalDto {
 
-	@NotBlank(message = "name shouldn't be null")
 	private String name;
-	@NotNull(message = "dept can not be null")
+
 	private String dept;
-	@NotBlank(message = "email souldn't be null")
+
 	private String email;
 
 	public HospitalDto(String email) {

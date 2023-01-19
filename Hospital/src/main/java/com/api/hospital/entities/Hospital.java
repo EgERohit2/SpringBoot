@@ -15,14 +15,14 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
 
 @Entity
-@Table(name="Hospital")
+@Table(name = "Hospital")
 
-@Where(clause="is_active")
-@SQLDelete(sql ="UPDATE Hospital set is_active=false where id=?")
+@Where(clause = "is_active")
+@SQLDelete(sql = "UPDATE Hospital set is_active=false where id=?")
 public class Hospital {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@NotBlank(message = "name shouldn't be null")
 	private String name;
@@ -30,8 +30,8 @@ public class Hospital {
 	private String dept;
 	@NotBlank(message = "email souldn't be null")
 	private String email;
-	private Boolean isActive=true;
-	
+	private Boolean isActive = true;
+
 	public Hospital(Boolean isActive, Date cretedt, Date updatedAt) {
 		super();
 		this.isActive = isActive;
@@ -65,10 +65,9 @@ public class Hospital {
 
 	@CreationTimestamp
 	private Date cretedt;
-	
+
 	@UpdateTimestamp
 	private Date updatedAt;
-	
 
 	public String getEmail() {
 		return email;
@@ -124,5 +123,4 @@ public class Hospital {
 		this.email = email;
 	}
 
-	
 }

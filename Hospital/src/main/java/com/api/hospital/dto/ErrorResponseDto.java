@@ -1,9 +1,9 @@
 package com.api.hospital.dto;
 
 public class ErrorResponseDto {
-	
+
 	private String msgKey;
-	
+
 	private String errorMessage;
 
 	public String getMsgKey() {
@@ -27,8 +27,9 @@ public class ErrorResponseDto {
 		this.msgKey = msgKey;
 		this.errorMessage = errorMessage;
 	}
-	
-	
-	
+
+	public ErrorResponseDto() {
+		// TODO Auto-generated constructor stub
+	}
 
 }

@@ -1,11 +1,11 @@
 package com.api.hospital.dto;
 
 public class SuccessResponseDto {
-	
+
 	private String msgKey;
-	
+
 	private String message;
-	
+
 	private Object data;
 
 	public String getMsgKey() {
@@ -38,7 +38,5 @@ public class SuccessResponseDto {
 		this.message = message;
 		this.data = data;
 	}
-	
-	
 
 }
