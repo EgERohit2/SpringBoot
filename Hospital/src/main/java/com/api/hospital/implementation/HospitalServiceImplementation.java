@@ -73,7 +73,7 @@ public class HospitalServiceImplementation implements HospitalService {
 		if ((search == "") || (search == null) || (search.length() == 0)) {
 			cvList = hospitalRepository.findByOrderById(paging, DtoImplementation.class);
 		} else {
-			cvList = hospitalRepository.findByDeptContainingIgnoreCaseOrderById(StringUtils.trimAllWhitespace(search),
+			cvList = hospitalRepository.findByEmailContainingIgnoreCaseOrderById(StringUtils.trimAllWhitespace(search),
 					paging, DtoImplementation.class);
 		}
 

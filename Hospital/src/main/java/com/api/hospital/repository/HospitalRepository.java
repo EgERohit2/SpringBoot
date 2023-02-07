@@ -15,5 +15,11 @@ public interface HospitalRepository extends JpaRepository<Hospital, Integer> {
 			Class<DtoImplementation> class1);
 
 	Page<DtoImplementation> findByOrderById(Pageable paging, Class<DtoImplementation> class1);
+	
+	Page<DtoImplementation> findByEmailContainingIgnoreCaseOrderById(String trimAllWhitespace, Pageable paging, 
+			Class<DtoImplementation> class1);
+	
+	
+	
 
 }
